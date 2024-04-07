@@ -90,10 +90,20 @@ namespace WebKursach.Controllers
         {
             try
             {
-                var cars = _employeeService.GetEmployee(id).SoldCars;
-                foreach (Car car in cars)
+                if(_employeeService.GetEmployee(id) != null)
                 {
-                    _carService.DeleteCar(car.Id);
+                    var cars = _employeeService.GetEmployee(id).SoldCars;
+
+                    List<Car> cars2 = new List<Car>();
+                    cars2.CopyTo(cars.ToArray());
+
+                    if (cars != null && cars2.Any())
+                    {
+                        foreach (Car car in cars2)
+                        {
+                            _carService.DeleteCar(car.Id);
+                        }
+                    }
                 }
 
                 var employeeDeleted = await Task.Run(() => _employeeService.DeleteEmployee(id));

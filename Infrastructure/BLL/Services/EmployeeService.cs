@@ -74,6 +74,7 @@ namespace WebKursach.Infrastructure.BLL.Services
 
                 if (db.Employees.Update(ph))
                 {
+                    p.SoldCars.Last().Position = Position.UnAvailable;
                     Save();
                     return true;
                 }
@@ -85,12 +86,16 @@ namespace WebKursach.Infrastructure.BLL.Services
         public bool DeleteEmployee(int id)
         {
             Employee p = db.Employees.GetItem(id);
-            var employeeDeleted = db.Employees.Delete(p.Id);
-
-            if (employeeDeleted)
+            if(p != null)
             {
-                Save();
-                return true;
+                var employeeDeleted = db.Employees.Delete(p.Id);
+
+                if (employeeDeleted)
+                {
+                    Save();
+                    return true;
+                }
+                return false;
             }
             return false;
         }

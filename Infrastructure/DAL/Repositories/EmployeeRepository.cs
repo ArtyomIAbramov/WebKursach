@@ -19,7 +19,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
         {
             try
             {
-                var employees = db.Employees.ToList();
+                var employees = db.Employees.Include(c => c.SoldCars).ToList();
                 _logger.LogExtension("Get Employees", employees);
 
                 return employees;
@@ -36,7 +36,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
         {
             try
             {
-                var employee = db.Employees.Find(Id);
+                var employee = db.Employees.Include(c => c.SoldCars).ToList().Where(c => c.Id == Id).First();
 
                 if (employee == null)
                 {
@@ -92,7 +92,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
         {
             try
             {
-                Employee p = db.Employees.Find(id);
+                Employee p = db.Employees.Include(c => c.SoldCars).ToList().Where(c => c.Id == id).First();
                 if (p != null)
                 {
                     db.Employees.Remove(p);
