@@ -46,13 +46,18 @@ namespace WebKursach.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await Task.Run(() => _orderService.MakeOrder(
+            var orderCreated = await Task.Run(() => _orderService.MakeOrder(
                 DateTime.Now,
                 order.Client,
                 order.Car,
                 order.Employee));
 
-            return CreatedAtAction("PostOrder", new { id = order.Id }, order);
+            if (orderCreated != null)
+            {
+                return CreatedAtAction("PostOrder", new { id = order.Id }, order);
+            }
+
+            return BadRequest();
         }
     }
 }

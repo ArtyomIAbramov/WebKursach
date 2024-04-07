@@ -6,14 +6,14 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
     {
         List<Client> GetAllClients();
         Client GetClient(int Id);
-        void CreateClient(
+        bool CreateClient(
             Car car,
             string name,
             string surname,
             string phonenumber,
             string address,
             string passport);
-        void UpdateClient(Client p);
-        void DeleteClient(int id);
+        bool UpdateClient(Client p);
+        bool DeleteClient(int id);
     }
 }

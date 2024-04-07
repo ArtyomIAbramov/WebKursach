@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using WebKursach.ApplicationCore.Models;
 using WebKursach.ApplicationCore.Interfaces.Services;
 using System.Data.Common;
+using System.Collections.Generic;
 
 namespace WebAPILab2.Controllers
 {
@@ -42,72 +43,83 @@ namespace WebAPILab2.Controllers
 
         // POST api/<ClientController>
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<ActionResult<Client>> PostClient(Client client)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await Task.Run(() =>_clientService.CreateClient(
-                client.Cars.FirstOrDefault(),
+            var clientCreated = await Task.Run(() =>_clientService.CreateClient(
+                _carService.GetAllCars().Where(c => c.Position == Position.InShop && c.Id == client.Cars.FirstOrDefault().Id).FirstOrDefault(),
                 client.Name,
                 client.Surname, 
                 client.Phonenumber,
                 client.Address,
                 client.Passport));
 
-            return CreatedAtAction("PostClient", new { id = client.Id }, client);
+            if (clientCreated)
+            {
+                return CreatedAtAction("PostClient", new { id = client.Id }, client);
+            }
+
+            return BadRequest();
         }
 
         // PUT api/<ClientController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> PutClient(int id, Client client)
         {
             if (id != client.Id)
             {
                 return BadRequest();
             }
-            try
+
+            var clientUpdated = await Task.Run(() => _clientService.UpdateClient(client));
+
+            if (clientUpdated)
             {
-                await Task.Run(() => _clientService.UpdateClient(client));
+                return Ok(client);
             }
-            catch (DbException)
-            {
-                if (!_clientService.GetAllClients().Any(x => x.Id == id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+            return NotFound();
         }
 
         // DELETE api/<ClientController>/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteClient(int id)
         {
             try
             {
-                var cars = _clientService.GetClient(id).Cars;
-                foreach (Car car in cars)
+                if (_clientService.GetClient(id) != null)
                 {
-                    _carService.DeleteCar(car.Id);
+                    var cars = _clientService.GetClient(id).Cars;
+
+                    List<Car> cars2 = new List<Car>();
+                    cars2.CopyTo(cars.ToArray());
+
+                    if (cars != null && cars2.Any())
+                    {
+                        foreach (Car car in cars2)
+                        {
+                            _carService.DeleteCar(car.Id);
+                        }
+                    }
                 }
 
-                await Task.Run(() => _clientService.DeleteClient(id));
+                var clientDeleted = await Task.Run(() => _clientService.DeleteClient(id));
+
+                if (clientDeleted)
+                {
+                    return Ok();
+                }
+                return NotFound();
             }
             catch (DbException)
             {
                 return NotFound();
             }
-
-            return NoContent();
         }
     }
 }

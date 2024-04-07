@@ -127,6 +127,7 @@ C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\WebKursach.As
 C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\WebKursach.csproj.CoreCompileInputs.cache
 C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\WebKursach.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\WebKursach.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\WebKursach.sourcelink.json
 C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\abram\Downloads\sadikov_lab_1\WebAPILab2\obj\Debug\net8.0\staticwebassets\msbuild.WebKursach.Microsoft.AspNetCore.StaticWebAssets.props

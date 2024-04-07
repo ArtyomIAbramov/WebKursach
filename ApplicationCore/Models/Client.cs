@@ -19,16 +19,5 @@ namespace WebKursach.ApplicationCore.Models
         public List<Car> Cars { get; set; }
 
         public Client() { }
-
-        public Client(Client a)
-        {
-            Id = a.Id;
-            Name = a.Name;
-            Surname = a.Surname;
-            Phonenumber = a.Phonenumber;
-            Address = a.Address;
-            Passport = a.Passport;
-            Cars = a.Cars;
-        }
     }
 }

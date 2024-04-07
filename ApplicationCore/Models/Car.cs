@@ -20,18 +20,6 @@ namespace WebKursach.ApplicationCore.Models
         public Position Position { get; set; }
 
         public Car() { }
-
-        public Car(Car a)
-        {
-            Id = a.Id;
-            Brand = a.Brand;
-            Model = a.Model;
-            Color = a.Color;
-            Cost = a.Cost;
-            Max_speed = a.Max_speed;
-            Power = a.Power;
-            Position = a.Position;
-        }
     }
 
     public enum Position

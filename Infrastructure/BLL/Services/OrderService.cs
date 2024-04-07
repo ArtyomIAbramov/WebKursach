@@ -27,22 +27,24 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Order_date = dateTime,
                 Order_price = car.Cost,
             };
-            db.Orders.Create(order);
+            var orderCreated = db.Orders.Create(order);
 
-            if (db.Save() > 0)
-                return GetOrder(order.Id);
+            if (orderCreated)
+            {
+                if (db.Save() > 0)
+                    return GetOrder(order.Id);
+            }
             return null;
-
         }
 
         public List<Order> GetAllOrders()
         {
-            return db.Orders.GetList().Select(i => new Order(i)).ToList();
+            return db.Orders.GetList();
         }
 
         public Order GetOrder(int Id)
         {
-            return new Order(db.Orders.GetItem(Id));
+            return db.Orders.GetItem(Id);
         }
     }
 }

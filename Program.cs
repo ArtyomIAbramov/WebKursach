@@ -9,6 +9,9 @@ using WebKursach.Infrastructure.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 // Add services to the container.
 
 builder.Services.AddCors(options =>
@@ -31,6 +34,10 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IDbRepository, DbRepository>();
+
+builder.Services.AddLogging();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -68,7 +75,6 @@ var app = builder.Build();
 using (var s = app.Services.CreateScope())
 {
     var context = s.ServiceProvider.GetRequiredService<DbAutoSalonContext>();
-    //await AutoSalonContextSeed.SeedAsync(context);
     await IdentitySeed.CreateUserRoles(s.ServiceProvider);
 }
 
@@ -87,5 +93,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Logger.LogInformation("Starting the app");
 
 app.Run();

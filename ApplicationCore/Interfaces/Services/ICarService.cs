@@ -6,14 +6,14 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
     {
         List<Car> GetAllCars();
         Car GetCar(int Id);
-        void CreateCar(
+        bool CreateCar(
             string brand,
             string model,
             string color,
             int max_speed,
             int power,
             Position position);
-        void UpdateCar(Car p);
-        void DeleteCar(int id);
+        bool UpdateCar(Car p);
+        bool DeleteCar(int id);
     }
 }

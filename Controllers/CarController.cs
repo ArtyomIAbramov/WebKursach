@@ -46,7 +46,7 @@ namespace WebAPILab2.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await Task.Run(() => _carService.CreateCar(
+            var carCreated = await Task.Run(() => _carService.CreateCar(
                 car.Brand,
                 car.Model,
                 car.Color,
@@ -54,7 +54,12 @@ namespace WebAPILab2.Controllers
                 car.Power,
                 car.Position));
 
-            return CreatedAtAction("PostCar", new { id = car.Id }, car);
+            if(carCreated)
+            {
+                return CreatedAtAction("PostCar", new { id = car.Id }, car);
+            }
+
+            return BadRequest();
         }
 
         // PUT api/<CarController>/5
@@ -66,39 +71,25 @@ namespace WebAPILab2.Controllers
                 return BadRequest();
             }
 
-            try
+            var carUpdated = await Task.Run(() => _carService.UpdateCar(car));
+            if (carUpdated)
             {
-                await Task.Run(() => _carService.UpdateCar(car));
+                return Ok(car);
             }
-
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_carService.GetAllCars().Any(x => x.Id == id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+            return NotFound();
         }
 
         // DELETE api/<CarController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCar(int id)
         {
-            try
-            {
-                await Task.Run(() => _carService.DeleteCar(id));
-            }
-            catch (DbException)
-            {
-                return NotFound();
-            }
+            var carDeleted = await Task.Run(() => _carService.DeleteCar(id));
 
-            return NoContent();
+            if (carDeleted)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
     }
 }

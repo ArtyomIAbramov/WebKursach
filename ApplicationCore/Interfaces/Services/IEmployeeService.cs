@@ -6,7 +6,7 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
     {
         List<Employee> GetAllEmployees();
         Employee GetEmployee(int Id);
-        void CreateEmployee(
+        bool CreateEmployee(
             string name,
             string surname,
             string post,
@@ -15,7 +15,7 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
             string passport,
             string email,
             int salary);
-        void UpdateEmployee(Employee p);
-        void DeleteEmployee(int id);
+        bool UpdateEmployee(Employee p);
+        bool DeleteEmployee(int id);
     }
 }

@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "WebAPILab2.ViewModels.LoginViewModel",
+        "Type": "WebKursach.ApplicationCore.Models.Login",
         "IsRequired": true
       }
     ],
@@ -45,7 +45,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "WebAPILab2.ViewModels.RegisterViewModel",
+        "Type": "WebKursach.ApplicationCore.Models.Register",
         "IsRequired": true
       }
     ],

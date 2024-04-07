@@ -14,15 +14,15 @@ namespace WebKursach.Infrastructure.BLL.Services
 
         public List<Employee> GetAllEmployees()
         {
-            return db.Employees.GetList().Select(i => new Employee(i)).ToList();
+            return db.Employees.GetList();
         }
 
         public Employee GetEmployee(int Id)
         {
-            return new Employee(db.Employees.GetItem(Id));
+            return db.Employees.GetItem(Id);
         }
 
-        public void CreateEmployee(
+        public bool CreateEmployee(
             string name,
             string surname,
             string post,
@@ -32,7 +32,7 @@ namespace WebKursach.Infrastructure.BLL.Services
             string email,
             int salary)
         {
-            db.Employees.Create(new Employee()
+            var employeeCreated = db.Employees.Create(new Employee()
             {
                 Name = name,
                 Surname = surname,
@@ -46,35 +46,53 @@ namespace WebKursach.Infrastructure.BLL.Services
                 SoldCars = new List<Car>(),
             });
 
-            Save();
+            if (employeeCreated)
+            {
+                Save();
+                return true;
+            }
+            return false;
         }
 
-        public void UpdateEmployee(Employee p)
+        public bool UpdateEmployee(Employee p)
         {
             Employee ph = db.Employees.GetItem(p.Id);
-            ph.Id = p.Id;
-            ph.Name = p.Name;
-            ph.Surname = p.Surname;
-            ph.Post = p.Post;
-            ph.Empphonenumber = p.Empphonenumber;
-            ph.Empaddress = p.Empaddress;
-            ph.Emppassport = p.Emppassport;
-            ph.Email = p.Email;
-            ph.Salary = p.Salary;
-            ph.TotalSold = p.TotalSold;
-            ph.SoldCars = p.SoldCars;
 
-            Save();
+            if(ph != null)
+            {
+                ph.Id = p.Id;
+                ph.Name = p.Name;
+                ph.Surname = p.Surname;
+                ph.Post = p.Post;
+                ph.Empphonenumber = p.Empphonenumber;
+                ph.Empaddress = p.Empaddress;
+                ph.Emppassport = p.Emppassport;
+                ph.Email = p.Email;
+                ph.Salary = p.Salary;
+                ph.TotalSold = p.TotalSold;
+                ph.SoldCars = p.SoldCars;
+
+                if (db.Employees.Update(ph))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
 
-        public void DeleteEmployee(int id)
+        public bool DeleteEmployee(int id)
         {
             Employee p = db.Employees.GetItem(id);
-            if (p != null)
+            var employeeDeleted = db.Employees.Delete(p.Id);
+
+            if (employeeDeleted)
             {
-                db.Employees.Delete(p.Id);
                 Save();
+                return true;
             }
+            return false;
         }
 
         public bool Save()

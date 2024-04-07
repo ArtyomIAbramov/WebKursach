@@ -11,9 +11,12 @@ namespace WebKursach.Infrastructure.DAL.Repositories
         private OrderRepository orderRepository;
         private EmployeeRepository employeeRepository;
 
-        public DbRepository(DbAutoSalonContext dbAutoSalonContext)
+        private readonly ILogger<DbAutoSalonContext> _logger;
+
+        public DbRepository(DbAutoSalonContext dbAutoSalonContext, ILogger<DbAutoSalonContext> logger)
         {
             db = dbAutoSalonContext;
+            _logger = logger;
         }
 
         public IRepository<Car> Cars
@@ -21,7 +24,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
             get
             {
                 if (carRepository == null)
-                    carRepository = new CarRepository(db);
+                    carRepository = new CarRepository(db, _logger);
                 return carRepository;
             }
         }
@@ -31,7 +34,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
             get
             {
                 if (clientRepository == null)
-                    clientRepository = new ClientRepository(db);
+                    clientRepository = new ClientRepository(db, _logger);
                 return clientRepository;
             }
         }
@@ -41,7 +44,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
             get
             {
                 if (orderRepository == null)
-                    orderRepository = new OrderRepository(db);
+                    orderRepository = new OrderRepository(db, _logger);
                 return orderRepository;
             }
         }
@@ -51,7 +54,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
             get
             {
                 if (employeeRepository == null)
-                    employeeRepository = new EmployeeRepository(db);
+                    employeeRepository = new EmployeeRepository(db, _logger);
                 return employeeRepository;
             }
         }

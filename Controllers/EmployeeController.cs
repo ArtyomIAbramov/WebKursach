@@ -48,7 +48,7 @@ namespace WebKursach.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await Task.Run(() => _employeeService.CreateEmployee(
+            var employeeCreated = await Task.Run(() => _employeeService.CreateEmployee(
                 employee.Name,
                 employee.Surname,
                 employee.Post,
@@ -58,35 +58,30 @@ namespace WebKursach.Controllers
                 employee.Email,
                 employee.Salary));
 
-            return CreatedAtAction("PostEmployee", new { id = employee.Id }, employee);
+            if (employeeCreated)
+            {
+                return CreatedAtAction("PostEmployee", new { id = employee.Id }, employee);
+            }
+
+            return BadRequest();
         }
 
         // PUT api/<EmployeeController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {
+
             if (id != employee.Id)
             {
                 return BadRequest();
             }
 
-            try
+            var employeeUpdated = await Task.Run(() => _employeeService.UpdateEmployee(employee));
+            if (employeeUpdated)
             {
-                await Task.Run(() => _employeeService.UpdateEmployee(employee));
+                return Ok(employee);
             }
-
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_employeeService.GetAllEmployees().Any(x => x.Id == id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+            return NotFound();
         }
 
         // DELETE api/<EmployeeController>/5
@@ -101,14 +96,18 @@ namespace WebKursach.Controllers
                     _carService.DeleteCar(car.Id);
                 }
 
-                await Task.Run(() => _employeeService.DeleteEmployee(id));
+                var employeeDeleted = await Task.Run(() => _employeeService.DeleteEmployee(id));
+
+                if (employeeDeleted)
+                {
+                    return Ok();
+                }
+                return NotFound();
             }
             catch (DbException)
             {
                 return NotFound();
             }
-
-            return NoContent();
         }
     }
 }

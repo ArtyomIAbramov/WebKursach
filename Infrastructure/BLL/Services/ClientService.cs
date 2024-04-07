@@ -14,15 +14,15 @@ namespace WebKursach.Infrastructure.BLL.Services
 
         public List<Client> GetAllClients()
         {
-            return db.Clients.GetList().Select(i => new Client(i)).ToList();
+            return db.Clients.GetList();
         }
 
         public Client GetClient(int Id)
         {
-            return new Client(db.Clients.GetItem(Id));
+            return db.Clients.GetItem(Id);
         }
 
-        public void CreateClient(
+        public bool CreateClient(
             Car car,
             string name,
             string surname,
@@ -30,7 +30,7 @@ namespace WebKursach.Infrastructure.BLL.Services
             string address,
             string passport)
         {
-            db.Clients.Create(new Client()
+            var clientCreated = db.Clients.Create(new Client()
             {
                 Name = name,
                 Surname = surname,
@@ -40,31 +40,55 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Cars = new List<Car> { car }
             });
 
-            Save();
+            if (clientCreated)
+            {
+                car.Position = Position.UnAvailable;
+                Save();
+                return true;
+            }
+            return false;
         }
 
-        public void UpdateClient(Client p)
+        public bool UpdateClient(Client p)
         {
             Client ph = db.Clients.GetItem(p.Id);
-            ph.Id = p.Id;
-            ph.Name = p.Name;
-            ph.Surname = p.Surname;
-            ph.Phonenumber = p.Phonenumber;
-            ph.Address = p.Address;
-            ph.Passport = p.Passport;
-            ph.Cars = p.Cars;
+            if(ph != null)
+            {
+                ph.Id = p.Id;
+                ph.Name = p.Name;
+                ph.Surname = p.Surname;
+                ph.Phonenumber = p.Phonenumber;
+                ph.Address = p.Address;
+                ph.Passport = p.Passport;
+                ph.Cars = p.Cars;
 
-            Save();
+                if (db.Clients.Update(ph))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
 
-        public void DeleteClient(int id)
+        public bool DeleteClient(int id)
         {
             Client p = db.Clients.GetItem(id);
             if (p != null)
             {
-                db.Clients.Delete(p.Id);
-                Save();
+                var clientDeleted = db.Clients.Delete(p.Id);
+
+                if (clientDeleted)
+                {
+                    Save();
+                    return true;
+                }
+                return false;
             }
+
+            return false;
+
         }
 
         public bool Save()

@@ -14,15 +14,15 @@ namespace WebKursach.Infrastructure.BLL.Services
 
         public List<Car> GetAllCars()
         {
-            return db.Cars.GetList().Select(i => new Car(i)).ToList();
+            return db.Cars.GetList();
         }
 
         public Car GetCar(int Id)
         {
-            return new Car(db.Cars.GetItem(Id));
+            return db.Cars.GetItem(Id);
         }
 
-        public void CreateCar(
+        public bool CreateCar(
             string brand, 
             string model, 
             string color,
@@ -30,7 +30,7 @@ namespace WebKursach.Infrastructure.BLL.Services
             int power,
             Position position)
         {
-            db.Cars.Create(new Car()
+            var carCreated = db.Cars.Create(new Car()
             {
                 Brand = brand,
                 Model = model,
@@ -39,36 +39,57 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Power = power,
                 Position = position,
             });
-            Save();
+            if (carCreated)
+            {
+                Save();
+                return true;
+            }
+            return false;
+
         }
 
-        public void UpdateCar(Car p)
+        public bool UpdateCar(Car p)
         {
             Car ph = db.Cars.GetItem(p.Id);
-            ph.Id = p.Id;
-            ph.Brand = p.Brand;
-            ph.Model = p.Model;
-            ph.Color = p.Color;
-            ph.Max_speed = p.Max_speed;
-            ph.Power = p.Power;
-            ph.Position = p.Position;
 
-            Save();
+            if(ph != null)
+            {
+                ph.Id = p.Id;
+                ph.Brand = p.Brand;
+                ph.Model = p.Model;
+                ph.Color = p.Color;
+                ph.Max_speed = p.Max_speed;
+                ph.Power = p.Power;
+                ph.Position = p.Position;
+                if(db.Cars.Update(ph))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
 
-        public void DeleteCar(int id)
+        public bool DeleteCar(int id)
         {
             Car p = db.Cars.GetItem(id);
-            if (p != null)
+            if(p == null)
+                return false;
+
+            var carDeleted = db.Cars.Delete(p.Id);
+            if (carDeleted)
             {
-                db.Cars.Delete(p.Id);
                 Save();
+                return true;
             }
+            return false;
         }
 
         public bool Save()
         {
-            if (db.Save() > 0) return true;
+            if (db.Save() > 0) 
+                return true;
             return false;
         }
     }
