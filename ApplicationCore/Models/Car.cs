@@ -17,16 +17,15 @@ namespace WebKursach.ApplicationCore.Models
 
         public int Power { get; set; }
 
-        public Position Position { get; set; }
+        public CarPosition CarPosition { get; set; } = CarPosition.InShop;
 
         public Car() { }
     }
 
-    public enum Position
+    public enum CarPosition
     {
-        InStock,
+        Sold,
         InShop,
-        UnAvailable,
-        Default
+        Deleted
     }
 }

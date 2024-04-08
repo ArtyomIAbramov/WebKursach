@@ -95,7 +95,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
                 Car p = db.Cars.Find(id);
                 if (p != null)
                 {
-                    db.Cars.Remove(p);
+                    p.CarPosition = CarPosition.Deleted;
                     _logger.LogExtension("Delete Car", p);
                     return true;
                 }

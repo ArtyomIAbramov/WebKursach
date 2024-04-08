@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Authorization;
 using WebKursach.ApplicationCore.Models;
 using WebKursach.ApplicationCore.Interfaces.Services;
-using System.Data.Common;
-using System.Collections.Generic;
 
 namespace WebAPILab2.Controllers
 {
@@ -14,19 +11,23 @@ namespace WebAPILab2.Controllers
     public class ClientController : ControllerBase
     {
         private IClientService _clientService;
-        private ICarService _carService;
 
-        public ClientController(IClientService clientService, ICarService carService)
+        public ClientController(IClientService clientService)
         {
             _clientService = clientService;
-            _carService = carService;
         }
 
         // GET: api/<ClientController>
-        [HttpGet]
+        [HttpGet("GetClients")]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
             return await Task.Run(_clientService.GetAllClients);
+        }
+
+        [HttpGet("GetAllNewClients")]
+        public async Task<ActionResult<IEnumerable<Client>>> GetAllNewClients()
+        {
+            return await Task.Run(_clientService.GetAllNewClients);
         }
 
         // GET api/<ClientController>/5
@@ -51,7 +52,6 @@ namespace WebAPILab2.Controllers
                 return BadRequest(ModelState);
             }
             var clientCreated = await Task.Run(() =>_clientService.CreateClient(
-                _carService.GetAllCars().Where(c => c.Position == Position.InShop && c.Id == client.Cars.FirstOrDefault().Id).FirstOrDefault(),
                 client.Name,
                 client.Surname, 
                 client.Phonenumber,
@@ -83,43 +83,6 @@ namespace WebAPILab2.Controllers
                 return Ok(client);
             }
             return NotFound();
-        }
-
-        // DELETE api/<ClientController>/5
-        [HttpDelete("{id}")]
-        //[Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteClient(int id)
-        {
-            try
-            {
-                if (_clientService.GetClient(id) != null)
-                {
-                    var cars = _clientService.GetClient(id).Cars;
-
-                    List<Car> cars2 = new List<Car>();
-                    cars2.CopyTo(cars.ToArray());
-
-                    if (cars != null && cars2.Any())
-                    {
-                        foreach (Car car in cars2)
-                        {
-                            _carService.DeleteCar(car.Id);
-                        }
-                    }
-                }
-
-                var clientDeleted = await Task.Run(() => _clientService.DeleteClient(id));
-
-                if (clientDeleted)
-                {
-                    return Ok();
-                }
-                return NotFound();
-            }
-            catch (DbException)
-            {
-                return NotFound();
-            }
         }
     }
 }

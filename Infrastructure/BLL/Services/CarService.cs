@@ -17,6 +17,16 @@ namespace WebKursach.Infrastructure.BLL.Services
             return db.Cars.GetList();
         }
 
+        public List<Car> GetAllAvailableCars()
+        {
+            return db.Cars.GetList().Where(c => c.CarPosition == CarPosition.InShop).ToList();
+        }
+
+        public List<Car> GetAllSoldCars()
+        {
+            return db.Cars.GetList().Where(c => c.CarPosition == CarPosition.Sold).ToList();
+        }
+
         public Car GetCar(int Id)
         {
             return db.Cars.GetItem(Id);
@@ -27,8 +37,7 @@ namespace WebKursach.Infrastructure.BLL.Services
             string model, 
             string color,
             int max_speed,
-            int power,
-            Position position)
+            int power)
         {
             var carCreated = db.Cars.Create(new Car()
             {
@@ -37,7 +46,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Color = color,
                 Max_speed = max_speed,
                 Power = power,
-                Position = position,
+                CarPosition = CarPosition.InShop,
             });
             if (carCreated)
             {
@@ -60,7 +69,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 ph.Color = p.Color;
                 ph.Max_speed = p.Max_speed;
                 ph.Power = p.Power;
-                ph.Position = p.Position;
+                ph.CarPosition = p.CarPosition;
                 if(db.Cars.Update(ph))
                 {
                     Save();

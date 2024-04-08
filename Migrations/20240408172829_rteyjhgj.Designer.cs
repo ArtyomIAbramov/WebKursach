@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebKursach.Infrastructure.DAL;
 
@@ -11,9 +12,11 @@ using WebKursach.Infrastructure.DAL;
 namespace WebKursach.Migrations
 {
     [DbContext(typeof(DbAutoSalonContext))]
-    partial class DbAutoSalonContextModelSnapshot : ModelSnapshot
+    [Migration("20240408172829_rteyjhgj")]
+    partial class rteyjhgj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

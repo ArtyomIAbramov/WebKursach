@@ -87,24 +87,26 @@ namespace WebKursach.Infrastructure.DAL.Repositories
             }
         }
 
+        //haven`t reason for delete client
         public bool Delete(int id)
         {
-            try
-            {
-                Client p = db.Clients.Include(c => c.Cars).ToList().Where(c => c.Id == id).First();
-                if (p != null)
-                {
-                    db.Clients.Remove(p);
-                    _logger.LogExtension("Delete Client", p);
-                    return true;
-                }
-                throw new Exception();
-            }
-            catch
-            {
-                _logger.LogExtension("Couldn`t delete Client with id", id, LogLevel.Error);
-                return false;
-            }
+            return false;
+            //try
+            //{
+            //    Client p = db.Clients.Include(c => c.Cars).ToList().Where(c => c.Id == id).First();
+            //    if (p != null)
+            //    {
+            //        db.Clients.Remove(p);
+            //        _logger.LogExtension("Delete Client", p);
+            //        return true;
+            //    }
+            //    throw new Exception();
+            //}
+            //catch
+            //{
+            //    _logger.LogExtension("Couldn`t delete Client with id", id, LogLevel.Error);
+            //    return false;
+            //}
         }
     }
 }

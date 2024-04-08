@@ -14,7 +14,7 @@ namespace WebKursach.Infrastructure.BLL.Services
 
         public List<Employee> GetAllEmployees()
         {
-            return db.Employees.GetList();
+            return db.Employees.GetList().Where(e=>e.EmployeePosition != Employee.EmployeePositionEnum.Fired).ToList();
         }
 
         public Employee GetEmployee(int Id)
@@ -74,7 +74,6 @@ namespace WebKursach.Infrastructure.BLL.Services
 
                 if (db.Employees.Update(ph))
                 {
-                    p.SoldCars.Last().Position = Position.UnAvailable;
                     Save();
                     return true;
                 }

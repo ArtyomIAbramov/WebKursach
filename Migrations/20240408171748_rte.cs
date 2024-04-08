@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebKursach.Migrations
 {
     /// <inheritdoc />
-    public partial class r : Migration
+    public partial class rte : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,8 @@ namespace WebKursach.Migrations
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phonenumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Passport = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Passport = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClientPosition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +82,8 @@ namespace WebKursach.Migrations
                     Emppassport = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
-                    TotalSold = table.Column<int>(type: "int", nullable: false)
+                    TotalSold = table.Column<int>(type: "int", nullable: false),
+                    EmployeePosition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

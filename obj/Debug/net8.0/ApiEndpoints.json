@@ -53,26 +53,6 @@
   },
   {
     "ContainingType": "WebAPILab2.Controllers.CarController",
-    "Method": "GetCars",
-    "RelativePath": "api/Car",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Car, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "WebAPILab2.Controllers.CarController",
     "Method": "PostCar",
     "RelativePath": "api/Car",
     "HttpMethod": "POST",
@@ -161,16 +141,56 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebAPILab2.Controllers.ClientController",
-    "Method": "GetClients",
-    "RelativePath": "api/Client",
+    "ContainingType": "WebAPILab2.Controllers.CarController",
+    "Method": "GetAllAvailableCars",
+    "RelativePath": "api/Car/GetAllAvailableCars",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Client, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Car, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebAPILab2.Controllers.CarController",
+    "Method": "GetAllCars",
+    "RelativePath": "api/Car/GetAllCars",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Car, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebAPILab2.Controllers.CarController",
+    "Method": "GetAllSoldCars",
+    "RelativePath": "api/Car/GetAllSoldCars",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Car, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -255,19 +275,43 @@
   },
   {
     "ContainingType": "WebAPILab2.Controllers.ClientController",
-    "Method": "DeleteClient",
-    "RelativePath": "api/Client/{id}",
-    "HttpMethod": "DELETE",
+    "Method": "GetAllNewClients",
+    "RelativePath": "api/Client/GetAllNewClients",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
+    "Parameters": [],
+    "ReturnTypes": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Client, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
       }
-    ],
-    "ReturnTypes": []
+    ]
+  },
+  {
+    "ContainingType": "WebAPILab2.Controllers.ClientController",
+    "Method": "GetClients",
+    "RelativePath": "api/Client/GetClients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebKursach.ApplicationCore.Models.Client, WebKursach, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "WebKursach.Controllers.EmployeeController",

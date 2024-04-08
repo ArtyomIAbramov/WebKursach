@@ -17,13 +17,17 @@ namespace WebKursach.Infrastructure.BLL.Services
             return db.Clients.GetList();
         }
 
+        public List<Client> GetAllNewClients()
+        {
+            return db.Clients.GetList().Where(c=>c.ClientPosition == Client.ClientPositionEnum.IsNew).ToList();
+        }
+
         public Client GetClient(int Id)
         {
             return db.Clients.GetItem(Id);
         }
 
         public bool CreateClient(
-            Car car,
             string name,
             string surname,
             string phonenumber,
@@ -37,12 +41,11 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Phonenumber = phonenumber,
                 Address = address,
                 Passport = passport,
-                Cars = new List<Car> { car }
+                Cars = new List<Car> { },
             });
 
             if (clientCreated)
             {
-                car.Position = Position.UnAvailable;
                 Save();
                 return true;
             }
@@ -70,25 +73,6 @@ namespace WebKursach.Infrastructure.BLL.Services
                 return false;
             }
             return false;
-        }
-
-        public bool DeleteClient(int id)
-        {
-            Client p = db.Clients.GetItem(id);
-            if (p != null)
-            {
-                var clientDeleted = db.Clients.Delete(p.Id);
-
-                if (clientDeleted)
-                {
-                    Save();
-                    return true;
-                }
-                return false;
-            }
-
-            return false;
-
         }
 
         public bool Save()

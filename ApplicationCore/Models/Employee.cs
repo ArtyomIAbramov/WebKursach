@@ -25,6 +25,14 @@ namespace WebKursach.ApplicationCore.Models
 
         public List<Car> SoldCars { get; set; }
 
+        public EmployeePositionEnum EmployeePosition { get; set; } = EmployeePositionEnum.Default;
+
         public Employee() { }
+
+        public enum EmployeePositionEnum
+        {
+            Default,
+            Fired,
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
         {
             try
             {
-                var orders = db.Orders.ToList();
+                var orders = db.Orders.Include(c => c.Client.Cars).Include(car => car.Car).Include(e => e.Employee.SoldCars).ToList();
                 _logger.LogExtension("Get Orders", orders);
 
                 return orders;
@@ -36,7 +36,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
         {
             try
             {
-                var order = db.Orders.Find(Id);
+                var order = db.Orders.Include(c => c.Client.Cars).Include(car => car.Car).Include(e => e.Employee.SoldCars).ToList().Where(p => p.Id == Id).First();
 
                 if (order == null)
                 {

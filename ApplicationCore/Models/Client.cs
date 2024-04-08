@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-
+﻿
 namespace WebKursach.ApplicationCore.Models
 {
     public class Client
@@ -18,6 +17,14 @@ namespace WebKursach.ApplicationCore.Models
 
         public List<Car> Cars { get; set; }
 
+        public ClientPositionEnum ClientPosition { get; set; } = ClientPositionEnum.IsNew;
+
         public Client() { }
+
+        public enum ClientPositionEnum
+        {
+            IsNew,
+            Default,
+        }
     }
 }

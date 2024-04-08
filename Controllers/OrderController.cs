@@ -39,13 +39,14 @@ namespace WebKursach.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             var orderCreated = await Task.Run(() => _orderService.MakeOrder(
                 DateTime.Now,
                 order.Client,

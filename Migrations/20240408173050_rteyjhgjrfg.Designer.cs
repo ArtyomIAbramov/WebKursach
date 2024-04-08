@@ -12,8 +12,8 @@ using WebKursach.Infrastructure.DAL;
 namespace WebKursach.Migrations
 {
     [DbContext(typeof(DbAutoSalonContext))]
-    [Migration("20240404190535_r")]
-    partial class r
+    [Migration("20240408173050_rteyjhgjrfg")]
+    partial class rteyjhgjrfg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +170,9 @@ namespace WebKursach.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CarPosition")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
@@ -189,9 +192,6 @@ namespace WebKursach.Migrations
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
 
                     b.Property<int>("Power")
                         .HasColumnType("int");
@@ -216,6 +216,9 @@ namespace WebKursach.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientPosition")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -253,6 +256,9 @@ namespace WebKursach.Migrations
                     b.Property<string>("Empaddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmployeePosition")
+                        .HasColumnType("int");
 
                     b.Property<string>("Emppassport")
                         .IsRequired()

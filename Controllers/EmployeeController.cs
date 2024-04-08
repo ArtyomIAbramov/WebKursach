@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 using WebKursach.ApplicationCore.Interfaces.Services;
 using WebKursach.ApplicationCore.Models;
 
@@ -13,12 +11,10 @@ namespace WebKursach.Controllers
     public class EmployeeController : ControllerBase
     {
         private IEmployeeService _employeeService;
-        private ICarService _carService;
 
-        public EmployeeController(IEmployeeService employeeService, ICarService carService)
+        public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
-            _carService = carService;
         }
 
         // GET: api/<EmployeeController>
@@ -70,7 +66,6 @@ namespace WebKursach.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {
-
             if (id != employee.Id)
             {
                 return BadRequest();
@@ -88,24 +83,8 @@ namespace WebKursach.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            try
+            if (_employeeService.GetEmployee(id) != null)
             {
-                if(_employeeService.GetEmployee(id) != null)
-                {
-                    var cars = _employeeService.GetEmployee(id).SoldCars;
-
-                    List<Car> cars2 = new List<Car>();
-                    cars2.CopyTo(cars.ToArray());
-
-                    if (cars != null && cars2.Any())
-                    {
-                        foreach (Car car in cars2)
-                        {
-                            _carService.DeleteCar(car.Id);
-                        }
-                    }
-                }
-
                 var employeeDeleted = await Task.Run(() => _employeeService.DeleteEmployee(id));
 
                 if (employeeDeleted)
@@ -114,10 +93,7 @@ namespace WebKursach.Controllers
                 }
                 return NotFound();
             }
-            catch (DbException)
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
     }
 }

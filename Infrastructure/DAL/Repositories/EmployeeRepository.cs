@@ -95,7 +95,7 @@ namespace WebKursach.Infrastructure.DAL.Repositories
                 Employee p = db.Employees.Include(c => c.SoldCars).ToList().Where(c => c.Id == id).First();
                 if (p != null)
                 {
-                    db.Employees.Remove(p);
+                    p.EmployeePosition = Employee.EmployeePositionEnum.Fired;
                     _logger.LogExtension("Delete Employee", p);
                     return true;
                 }

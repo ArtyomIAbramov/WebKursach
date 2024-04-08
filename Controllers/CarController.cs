@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Cors;
 using WebKursach.ApplicationCore.Models;
 using WebKursach.ApplicationCore.Interfaces.Services;
-using System.Data.Common;
 
 namespace WebAPILab2.Controllers
 {
@@ -20,10 +18,22 @@ namespace WebAPILab2.Controllers
         }
 
         // GET: api/<CarController>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
+        [HttpGet("GetAllCars")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetAllCars()
         {
             return await Task.Run(_carService.GetAllCars);
+        }
+
+        [HttpGet("GetAllAvailableCars")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetAllAvailableCars()
+        {
+            return await Task.Run(_carService.GetAllAvailableCars);
+        }
+
+        [HttpGet("GetAllSoldCars")]
+        public async Task<ActionResult<IEnumerable<Car>>> GetAllSoldCars()
+        {
+            return await Task.Run(_carService.GetAllSoldCars);
         }
 
         // GET api/<CarController>/5
@@ -51,8 +61,7 @@ namespace WebAPILab2.Controllers
                 car.Model,
                 car.Color,
                 car.Max_speed,
-                car.Power,
-                car.Position));
+                car.Power));
 
             if(carCreated)
             {
