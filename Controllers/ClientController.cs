@@ -56,8 +56,7 @@ namespace WebAPILab2.Controllers
                 client.Surname, 
                 client.Phonenumber,
                 client.Address,
-                client.Passport,
-                client.Cars.FirstOrDefault()));
+                client.Passport));
 
             if (clientCreated)
             {
