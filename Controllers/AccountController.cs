@@ -52,7 +52,7 @@ namespace WebAPILab2.Controllers
                         message = "Пользователь не добавлен",
                         error = ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage))
                     };
-                    return Created("", errorMsg);
+                    return BadRequest();
                 }
             }
             else
@@ -63,7 +63,7 @@ namespace WebAPILab2.Controllers
                     error = ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage))
                 };
                 _logger.LogExtension("incorrect input data","",LogLevel.Error);
-                return Created("", errorMsg);
+                return BadRequest();
 
             }
         }
@@ -95,7 +95,7 @@ namespace WebAPILab2.Controllers
                         message = "Вход не выполнен",
                         error = ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage))
                     };
-                    return Created("", errorMsg);
+                    return BadRequest();
                 }
             }
             else
@@ -106,7 +106,7 @@ namespace WebAPILab2.Controllers
                     error = ModelState.Values.SelectMany(e => e.Errors.Select(er => er.ErrorMessage))
                 };
                 _logger.LogExtension("Error", errorMsg, LogLevel.Error);
-                return Created("", errorMsg);
+                return BadRequest();
             }
         }
 
