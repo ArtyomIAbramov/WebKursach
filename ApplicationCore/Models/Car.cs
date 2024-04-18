@@ -19,6 +19,8 @@ namespace WebKursach.ApplicationCore.Models
 
         public CarPosition CarPosition { get; set; } = CarPosition.InShop;
 
+        public string Url { get; set; }
+
         public Car() { }
     }
 

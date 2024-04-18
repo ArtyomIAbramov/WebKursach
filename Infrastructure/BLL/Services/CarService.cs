@@ -37,7 +37,8 @@ namespace WebKursach.Infrastructure.BLL.Services
             string model, 
             string color,
             int max_speed,
-            int power)
+            int power,
+            string url)
         {
             var carCreated = db.Cars.Create(new Car()
             {
@@ -47,6 +48,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Max_speed = max_speed,
                 Power = power,
                 CarPosition = CarPosition.InShop,
+                Url = url
             });
             if (carCreated)
             {
@@ -70,6 +72,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 ph.Max_speed = p.Max_speed;
                 ph.Power = p.Power;
                 ph.CarPosition = p.CarPosition;
+                ph.Url = p.Url;
                 if(db.Cars.Update(ph))
                 {
                     Save();

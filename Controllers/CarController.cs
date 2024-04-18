@@ -61,7 +61,8 @@ namespace WebAPILab2.Controllers
                 car.Model,
                 car.Color,
                 car.Max_speed,
-                car.Power));
+                car.Power,
+                car.Url));
 
             if(carCreated)
             {

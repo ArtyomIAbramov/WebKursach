@@ -13,7 +13,8 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
             string model,
             string color,
             int max_speed,
-            int power);
+            int power, 
+            string url);
         bool UpdateCar(Car p);
         bool DeleteCar(int id);
     }
