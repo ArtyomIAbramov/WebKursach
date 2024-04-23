@@ -12,8 +12,7 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
             string surname,
             string phonenumber,
             string address,
-            string passport,
-            Car car);
+            string passport);
         bool UpdateClient(Client p);
     }
 }

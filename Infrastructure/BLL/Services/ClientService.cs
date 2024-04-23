@@ -32,8 +32,7 @@ namespace WebKursach.Infrastructure.BLL.Services
             string surname,
             string phonenumber,
             string address,
-            string passport,
-            Car car = null)
+            string passport)
         {
             var clientCreated = db.Clients.Create(new Client()
             {
@@ -42,7 +41,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Phonenumber = phonenumber,
                 Address = address,
                 Passport = passport,
-                Cars = new List<Car> { car },
+                Cars = new List<Car> { },
             });
 
             if (clientCreated)
