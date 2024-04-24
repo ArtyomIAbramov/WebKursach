@@ -23,7 +23,7 @@ namespace WebKursach.ApplicationCore.Models
 
         public int TotalSold { get; set; }
 
-        public List<Car> SoldCars { get; set; }
+        public List<Car>? SoldCars { get; set; }
 
         public EmployeePositionEnum EmployeePosition { get; set; } = EmployeePositionEnum.Default;
 
