@@ -64,6 +64,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 ph.Address = p.Address;
                 ph.Passport = p.Passport;
                 ph.Cars = p.Cars;
+                ph.ClientPosition = p.ClientPosition;
 
                 if (db.Clients.Update(ph))
                 {
