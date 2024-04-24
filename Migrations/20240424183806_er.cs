@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebKursach.Migrations
 {
     /// <inheritdoc />
-    public partial class rte : Migration
+    public partial class er : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -208,7 +208,8 @@ namespace WebKursach.Migrations
                     Cost = table.Column<int>(type: "int", nullable: false),
                     Max_speed = table.Column<int>(type: "int", nullable: false),
                     Power = table.Column<int>(type: "int", nullable: false),
-                    Position = table.Column<int>(type: "int", nullable: false),
+                    CarPosition = table.Column<int>(type: "int", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: true),
                     EmployeeId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -233,12 +234,12 @@ namespace WebKursach.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Order_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Order_price = table.Column<int>(type: "int", nullable: false),
+                    Order_date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Order_price = table.Column<int>(type: "int", nullable: true),
                     CarId = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    Contract_code = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Contract_code = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

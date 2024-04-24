@@ -54,7 +54,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Client = clientnew,
                 Contract_code = dateTime.ToString(),
                 Order_date = dateTime,
-                Order_price = car.Cost,
+                Order_price = carnew.Cost,
             };
 
             var orderCreated = db.Orders.Create(order);
@@ -63,6 +63,7 @@ namespace WebKursach.Infrastructure.BLL.Services
             {
                 employeenew.SoldCars.Add(carnew);
                 clientnew.Cars.Add(carnew);
+                employeenew.TotalSold += carnew.Cost;
                 carnew.CarPosition = CarPosition.Sold;
                 clientnew.ClientPosition = Client.ClientPositionEnum.Default;
 

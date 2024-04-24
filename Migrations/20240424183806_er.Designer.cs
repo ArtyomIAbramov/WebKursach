@@ -12,8 +12,8 @@ using WebKursach.Infrastructure.DAL;
 namespace WebKursach.Migrations
 {
     [DbContext(typeof(DbAutoSalonContext))]
-    [Migration("20240408173050_rteyjhgjrfg")]
-    partial class rteyjhgjrfg
+    [Migration("20240424183806_er")]
+    partial class er
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,10 @@ namespace WebKursach.Migrations
                     b.Property<int>("Power")
                         .HasColumnType("int");
 
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
@@ -306,16 +310,15 @@ namespace WebKursach.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Contract_code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Order_date")
+                    b.Property<DateTime?>("Order_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Order_price")
+                    b.Property<int?>("Order_price")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

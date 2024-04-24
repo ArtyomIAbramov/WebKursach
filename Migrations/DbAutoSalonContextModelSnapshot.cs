@@ -307,16 +307,15 @@ namespace WebKursach.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Contract_code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Order_date")
+                    b.Property<DateTime?>("Order_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Order_price")
+                    b.Property<int?>("Order_price")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
