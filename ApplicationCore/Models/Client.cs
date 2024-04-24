@@ -15,7 +15,7 @@ namespace WebKursach.ApplicationCore.Models
 
         public string Passport { get; set; }
 
-        public List<Car> Cars { get; set; }
+        public List<Car>? Cars { get; set; }
 
         public ClientPositionEnum ClientPosition { get; set; } = ClientPositionEnum.IsNew;
 

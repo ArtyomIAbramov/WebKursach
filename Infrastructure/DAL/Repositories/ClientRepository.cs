@@ -74,6 +74,14 @@ namespace WebKursach.Infrastructure.DAL.Repositories
             {
                 if (p != null)
                 {
+                    if(p.Cars != null && p.Cars.Any())
+                    {
+                        foreach (var c in p.Cars)
+                        {
+                            c.Id = 0;
+                            c.CarPosition = CarPosition.Deleted;
+                        }
+                    }
                     db.Entry(p).State = EntityState.Modified;
                     _logger.LogExtension("Update Client", p);
                     return true;
