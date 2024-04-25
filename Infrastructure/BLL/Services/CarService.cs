@@ -35,6 +35,7 @@ namespace WebKursach.Infrastructure.BLL.Services
         public bool CreateCar(
             string brand, 
             string model, 
+            int cost,
             string color,
             int max_speed,
             int power,
@@ -46,6 +47,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 Model = model,
                 Color = color,
                 Max_speed = max_speed,
+                Cost = cost,
                 Power = power,
                 CarPosition = CarPosition.InShop,
                 Url = url
@@ -73,6 +75,7 @@ namespace WebKursach.Infrastructure.BLL.Services
                 ph.Power = p.Power;
                 ph.CarPosition = p.CarPosition;
                 ph.Url = p.Url;
+                ph.Cost = p.Cost;
                 if(db.Cars.Update(ph))
                 {
                     Save();

@@ -59,6 +59,7 @@ namespace WebAPILab2.Controllers
             var carCreated = await Task.Run(() => _carService.CreateCar(
                 car.Brand,
                 car.Model,
+                car.Cost,
                 car.Color,
                 car.Max_speed,
                 car.Power,

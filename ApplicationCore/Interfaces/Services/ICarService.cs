@@ -11,6 +11,7 @@ namespace WebKursach.ApplicationCore.Interfaces.Services
         bool CreateCar(
             string brand,
             string model,
+            int cost,
             string color,
             int max_speed,
             int power, 
